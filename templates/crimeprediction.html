@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>Making Predictions/title>
+  
+<!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+
+  <!-- Icons -->
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/leaflet.extra-markers.min.css">
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+</head>
+<body>
+    <header>
+    <!--Navigation bar-->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+       <a class="navbar-brand" id="homepagelat" href="/">Chicago Crime-Home</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>    
+       <div class="navbar-collapse justify-content-end">
+         <ul class="navbar-nav">
+           <li class="nav-item">
+             <a class="nav-link" href="/crimetype">Arrest vs. Crime Type</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="/heatmap">Crime Concentration</a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/prediction">Predicting Chicago Crime</a>
+          </li>
+         </ul>
+       </div>
+     </nav>
+    </header>
+  
+          <div class="row">
+        <div id="container" style="width:840px; height: 400px;">
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            <div class="well">
+                </div>
+              </div>
+            </div>
+        
+         <!-- D3 -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+
+        <!-- MomentJS -->
+         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+        <!-- Leaflet JavaScript -->
+        <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+        crossorigin=""></script>
+
+        <!-- Icons -->
+        <script src="js/leaflet.extra-markers.min.js"></script>
+
+        <!-- polyfill.io is library for using newer JavaScript features in older browers (such as Object.assign) -->
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+        <script type="text/javascript" src="static/js/predict.js"></script>
+        
+   </body>
+   </html>
