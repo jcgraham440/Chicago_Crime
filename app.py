@@ -27,7 +27,7 @@ Base.prepare(db.engine, reflect=True)
 Chicago_Metadata = Base.classes.chicago
 stmt = db.session.query(Chicago_Metadata).statement
 df = pd.read_sql_query(stmt, db.session.bind)
-print("Loaded dataframe successfully...")
+print("Loaded chicago dataframe successfully...")
 
 # Filter dataframe by certain crime types
 crime_types = ['THEFT', 'BATTERY', 'CRIMINAL DAMAGE', 'NARCOTICS', 'ASSAULT', 
@@ -37,6 +37,16 @@ filtered_df = df[df.Primary_Type.isin(crime_types)]
 # prepare leaflet json
 dflocs = filtered_df[["Primary_Type", "Latitude", "Longitude"]].copy()
 g = dflocs.to_json()
+
+# prepare to load the entire chicago_clusters table into a dataframe
+Clusters_Metadata = Base.classes.chicago_clusters
+stmt = db.session.query(Clusters_Metadata).statement
+clusters_df = pd.read_sql_query(stmt, db.session.bind)
+print("Loaded clusters dataframe successfully...")
+
+#preare clusters for prediction leaflet
+json_clusters = clusters_df.to_json()
+
 
 @app.route("/")
 def index():
@@ -133,6 +143,15 @@ def time():
     binned_time_df = crime_time_df.groupby("Time_Bins").size()
 
     return (binned_time_df.to_json())
+
+@app.route("/prediction")
+def crimeprediction():
+    print("rendering crime_prediction.html...")
+    return render_template("crimeprediction.html")
+
+@app.route("/clusters")
+def clusters():
+    return (json_clusters)
 
 if __name__ == "__main__":
     app.run()
