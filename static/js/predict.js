@@ -1,31 +1,34 @@
-function createMap(crimeclusters) {
-
-var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"http://mapbox.com\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.light",
-  accessToken: API_KEY_2
+var myMap = L.map("container", {
+  center: [41.8781, -87.6298],
+  zoom: 11,
+  preferCanvas: true
 });
 
-// Create a baseMaps object to hold the lightmap layer
-var baseMaps = {
-    "Light Map": lightmap
-  };
 
-  // Create an overlayMaps object to hold the bikeStations layer
-var overlayMaps = {
-    "Crime Clusters": clusters
-  };
+console.log("adding tileLayer()...")
+// Adding tile layer to the map
+L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+      maxZoom: 18,
+      id: "mapbox.streets",
+      updateWhenZooming: false,
+      updateWhenIdle: true,
+      accessToken: API_KEY
+}).addTo(myMap);
 
-// Create the map object with options
-var myMap = L.map("container", {
-    center: [40.73, -74.0059],
-    zoom: 12,
-    layers: [lightmap, clusters]
-  });
-
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);
-
-}
+// Retrieve data from the database
+d3.json(`/clusters`).then(function(response) {
+   
+      // Create a new marker cluster group
+      var markers = L.markerClusterGroup();
+      console.log("looping through the data...");
+      console.log(response)
+      // Loop through data
+      for (var i = 0; i <= response.length; i++) {
+	        // Add a new marker to the cluster group and bind a pop-up
+	       markers.addLayer(L.marker([response.Latitude[i], response.Longitude[i]])
+	                        .bindPopup(response.Crime_type[i]));
+      }
+      // Add our marker cluster layer to the map
+      myMap.addLayer(markers);
+});
