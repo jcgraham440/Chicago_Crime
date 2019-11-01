@@ -153,5 +153,12 @@ def crimeprediction():
 def clusters():
     return (json_clusters)
 
+
+@app.route("/map")
+def choropleth():
+    """Return the homepage."""
+    # return render_template("index.html", metadataTable =Samples_html)
+    return render_template("map.html")
+
 if __name__ == "__main__":
     app.run()
