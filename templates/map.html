@@ -25,6 +25,35 @@
 </head>
 
 <body>
+    <header>
+        <!--Navigation bar-->
+         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+           <a class="navbar-brand" id="homepagelat" href="/">Chicago Crime-Home</a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>    
+           <div class="navbar-collapse justify-content-end">
+             <ul class="navbar-nav">
+               <li class="nav-item">
+                 <a class="nav-link" href="/crimetype">Arrest vs. Crime Type</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="/heatmap">Crime Concentration</a>
+               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/map">Crime Clusters</a>
+              </li>
+             </ul>
+           </div>
+         </nav>
+        </header>
+        <div>
+            <a href=https://public.tableau.com/profile/carly.russell#!/vizhome/ClusterCrimeTypebyYear/Sheet1?publish=yes>Crime Clusters by Year: 2010-2019</a>
+        </div>
+        <div>
+          <hr>
+          <h3>Crime Clusters 2017-2019</h3>
+        </div>
   <!-- The div where we will inject our map -->
   <div id="map"></div>
 

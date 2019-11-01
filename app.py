@@ -15,7 +15,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:"+password+"@localhost:5432/crime_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:{password}@localhost:5432/crime_db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # reflect an existing database into a new model
@@ -37,15 +37,6 @@ filtered_df = df[df.Primary_Type.isin(crime_types)]
 # prepare leaflet json
 dflocs = filtered_df[["Primary_Type", "Latitude", "Longitude"]].copy()
 g = dflocs.to_json()
-
-# prepare to load the entire chicago_clusters table into a dataframe
-Clusters_Metadata = Base.classes.chicago_clusters
-stmt = db.session.query(Clusters_Metadata).statement
-clusters_df = pd.read_sql_query(stmt, db.session.bind)
-print("Loaded clusters dataframe successfully...")
-
-#preare clusters for prediction leaflet
-json_clusters = clusters_df.to_json()
 
 
 @app.route("/")
@@ -144,14 +135,6 @@ def time():
 
     return (binned_time_df.to_json())
 
-@app.route("/prediction")
-def crimeprediction():
-    print("rendering crime_prediction.html...")
-    return render_template("crimeprediction.html")
-
-@app.route("/clusters")
-def clusters():
-    return (json_clusters)
 
 
 @app.route("/map")
