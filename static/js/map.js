@@ -1,8 +1,26 @@
 // We create the tile layers that will be the selectable backgrounds of our map.
-var graymap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+
+// Adding tile layer
+  // id: "mapbox.streets",
+  // id: "mapbox.light",
+  // id: "mapbox.dark",
+  // id: "mapbox.satellite",
+  // id: "mapbox.streets-satellite",
+  // id: "mapbox.wheatpaste",
+  // id: "mapbox.streets-basic",
+  // id: "mapbox.comic",
+  // id: "mapbox.outdoors", 
+  // id: "mapbox.run-bike-hike", 
+  // id: "mapbox.pencil",
+  // id: "mapbox.pirates",
+  // id: "mapbox.emerald", 
+  // id: "mapbox.high-contrast", 
+
+
+var neighborhoods = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='https://www.mapbox.com/'>Mapbox</a>",
   maxZoom: 18,
-  id: "mapbox.light",
+  id: "mapbox.emerald",
   accessToken: API_KEY
 });
 
@@ -13,6 +31,13 @@ var outdoors = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png
   accessToken: API_KEY
 });
 
+var satellite = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+   attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='https://www.mapbox.com/'>Mapbox</a>",
+   maxZoom: 18,
+   id: "mapbox.streets-satellite",
+   accessToken: API_KEY
+ });
+
 // We then create the map object with options. Adding the tile layers we just
 // created to an array of layers.
 var map = L.map("map", {
@@ -20,11 +45,11 @@ var map = L.map("map", {
    41.8781, -87.6298
   ],
   zoom: 11,
-  layers: [graymap, outdoors]
+  layers: [ satellite, outdoors, neighborhoods]
 });
 
 // Adding our 'graymap' tile layer to the map.
-graymap.addTo(map);
+neighborhoods.addTo(map);
 
 // We create the layers for our two different sets of data, 1) clusterpoints and 2)income
 var clusterpoints = new L.LayerGroup();
@@ -33,8 +58,9 @@ var income = new L.LayerGroup();
 // Defining an object that contains all of our different map choices. Only one
 // of these maps will be visible at a time!
 var baseMaps = {
-  "Gray Map": graymap,
-  "Colored Map": outdoors
+  "Satellite": satellite,
+  "Outdoors": outdoors,
+  "Neighborhoods": neighborhoods,
 };
 
 // We define an object that contains all of our overlays. Any combination of
